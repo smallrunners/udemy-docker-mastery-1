@@ -1,7 +1,4 @@
-# version isn't needed as of 2020 for docker compose CLI. 
-# All 2.x and 3.x features supported
-# version: '2'
-# NOTE: move this answer file up a directory so it'll work
+# docker secrets assignment 1 using a docker compose yml file
 
 services:
 
@@ -14,11 +11,9 @@ services:
       - drupal-profiles:/var/www/html/profiles       
       - drupal-sites:/var/www/html/sites      
       - drupal-themes:/var/www/html/themes
-    external:
-      - 
  
   postgres:
-    image: postgres:14
+    image: postgres:9.6
     environment:
       - POSTGRES_PASSWORD_FILE/run/secrets/psql-pw
     secrets:

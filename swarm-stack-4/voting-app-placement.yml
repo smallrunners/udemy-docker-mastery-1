@@ -18,12 +18,21 @@ services:
             - POSTGRES_HOST_AUTH_METHOD=trust
         networks:
             - backend
+        deploy:
+            placement:
+                constraints:
+                    - node.labels.ssd == true
     vote:
         image: bretfisher/examplevotingapp_vote
         ports:
             - '5000:80'
         networks:
             - frontend
+        deploy:
+            replicas: 2
+            placement:
+                constraints:
+                    - node.role == worker
     result:
         image: bretfisher/examplevotingapp_result
         ports:
@@ -35,6 +44,11 @@ services:
         networks:
             - frontend
             - backend
+        deploy:
+            mode: global
+            placement:
+                constraints:
+                    - node.role == worker
 networks:
     frontend: null
     backend: null
